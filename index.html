@@ -4,10 +4,13 @@
     <meta charset="utf-8">
     <title></title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <div id="app">
+      <h1>{{ player.name.first }} {{ player.name.last }}</h1>
       <table>
         <thead>
           <tr>
@@ -24,8 +27,8 @@
         <tbody>
           <tr v-for="(item, key) in gameStats" v-bind:key="key">
             <td>{{ key + 1 }}</td>
-            <td>N/A</td>
-            <td>N/A</td>
+            <td v-bind:class="{ 'result-w': item.result === 'W', 'result-l': item.result === 'L' }">{{ item.result }}</td>
+            <td>({{ item.record.w }}-{{ item.record.l }})</td>
             <td>{{ item.pts }}</td>
             <td>{{ item.reb }}</td>
             <td>{{ item.ast }}</td>
@@ -35,18 +38,18 @@
         </tbody>
         <tfoot>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>{{ perGameStats.pts }}</td>
-            <td>{{ perGameStats.reb }}</td>
-            <td>{{ perGameStats.ast }}</td>
-            <td>{{ perGameStats.blk }}</td>
-            <td>{{ perGameStats.stl }}</td>
+            <td colspan="2">Season Avg</td>
+            <td>({{ record.w }}-{{ record.l }})</td>
+            <td>{{ perGameStats.pts }} <span>PPG</span></td>
+            <td>{{ perGameStats.reb }} <span>RPG</span></td>
+            <td>{{ perGameStats.ast }} <span>APG</span></td>
+            <td>{{ perGameStats.blk }} <span>BPG</span></td>
+            <td>{{ perGameStats.stl }} <span>SPG</span></td>
           </tr>
         </tfoot>
       </table>
-      <button type="button" @click="sim()">simulate</button>
+      <button type="button" @click="simulateNextGame()">Simulate Next Game</button>
+      <button type="button" @click="simulateRemainingGames()">Simulate Remaining Games</button>
     </div>
     <script src="app.js"></script>
   </body>

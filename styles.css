@@ -1,12 +1,46 @@
 body {
-  font-family: monospace;
+  font-family: "Roboto Mono", monospace;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 table {
+  border-collapse: collapse;
+  margin-bottom: 20px;
   width: 100%;
+}
+
+th {
+  font-weight: 700;
 }
 
 th,
 td {
+  border: 1px solid lightgray;
+  padding: 8px;
   text-align: left;
+}
+
+thead {
+  background-color: whitesmoke;
+  border-bottom: 2px solid black;
+}
+
+tfoot {
+  background-color: whitesmoke;
+  border-top: 2px solid black;
+}
+
+span {
+  color: gray;
+}
+
+.result-w {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+}
+
+.result-l {
+  background-color: #ffebee;
+  color: #b71c1c;
 }

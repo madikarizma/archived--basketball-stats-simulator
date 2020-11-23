@@ -1,6 +1,10 @@
 var app = new Vue({
   el: '#app',
   data: {
+    record: {
+      w: 0,
+      l: 0
+    },
     gameStats: [],
     seasonStats: {
       pts: 0,
@@ -17,6 +21,10 @@ var app = new Vue({
       stl: 0
     },
     player: {
+      name: {
+        first: 'Scott',
+        last: 'Blanchard'
+      },
       ratings: {
         pts: 93,
         reb: 55,
@@ -59,7 +67,23 @@ var app = new Vue({
       this.updatePerGameStats();
     },
     createGameStats() {
+      const isWin = (Math.random() > .5);
+
+      if (isWin) {
+        this.record.w++;
+      } else {
+        this.record.l++
+      }
+
+      const result = isWin ? 'W' : 'L';
+
+      const record = {
+        ...this.record
+      };
+
       const gameStats = {
+        result,
+        record,
         pts: this.generateStat(6, 24),
         reb: this.generateStat(1, 8),
         ast: this.generateStat(4, 12),
@@ -69,9 +93,22 @@ var app = new Vue({
       this.gameStats.push(gameStats);
       this.updateSeasonStats(gameStats);
     },
-    sim() {
-      for (var i = 0; i < 82; i++) {
+    simulateNextGame() {
+      const gamesPlayed = this.gameStats.length;
+
+      if (this.gameStats.length < 82) {
         this.createGameStats();
+      }
+    },
+    simulateRemainingGames() {
+      const gamesPlayed = this.gameStats.length;
+
+      if (this.gameStats.length < 82) {
+        const remainingGames = 82 - gamesPlayed;
+
+        for (var i = 0; i < remainingGames; i++) {
+          this.createGameStats();
+        }
       }
     }
   }
